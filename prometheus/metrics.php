@@ -245,5 +245,9 @@ foreach ($data['cron_jobs'] as $cron) {
     
     echo "# HELP glpi_crontasks_run_state_{$cron['name']} Dito se o cronjob `{$cron['name']}` rodou no período esperado (sim = 1, não = 0)\n";
     echo "# TYPE glpi_crontasks_run_state_{$cron['name']} gauge\n";
-    echo "glpi_crontasks_run_state_{$cron['name']} " . intval((strtotime($cron['lastrun']) * 1 + $cron['frequency']) >= time()) . "\n\n";
+    if ($cron['state'] == 1) {
+        echo "glpi_crontasks_run_state_{$cron['name']} " . intval((strtotime($cron['lastrun']) * 1 + $cron['frequency']) >= time()) . "\n\n";
+    } else {
+        echo "glpi_crontasks_run_state_{$cron['name']} 1\n\n";
+    }
 }
