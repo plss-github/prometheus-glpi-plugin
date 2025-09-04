@@ -210,46 +210,59 @@ echo "# HELP glpi_total_high_try_notifications Notificações com mais de 3 tent
 echo "# TYPE glpi_total_high_try_notifications gauge\n";
 echo "glpi_total_high_try_notifications {$data['notifications']['high_try']}\n\n";
 
+echo "# HELP glpi_crontask_state Estado do cronjob (ativo = 1, inativo = 0)\n";
+echo "# TYPE glpi_crontask_state gauge\n";
+
+echo "# HELP glpi_crontask_frequency_seconds Frequência do cronjob em segundos\n";
+echo "# TYPE glpi_crontask_frequency_seconds gauge\n";
+
+echo "# HELP glpi_crontask_frequency_minutes Frequência do cronjob em minutos\n";
+echo "# TYPE glpi_crontask_frequency_minutes gauge\n";
+
+echo "# HELP glpi_crontask_frequency_hours Frequência do cronjob em horas\n";
+echo "# TYPE glpi_crontask_frequency_hours gauge\n";
+
+echo "# HELP glpi_crontask_last_run_seconds Última execução do cronjob (timestamp Unix em segundos)\n";
+echo "# TYPE glpi_crontask_last_run_seconds gauge\n";
+
+echo "# HELP glpi_crontask_last_run_minutes Última execução do cronjob (em minutos)\n";
+echo "# TYPE glpi_crontask_last_run_minutes gauge\n";
+
+echo "# HELP glpi_crontask_last_run_hours Última execução do cronjob (em horas)\n";
+echo "# TYPE glpi_crontask_last_run_hours gauge\n";
+
+echo "# HELP glpi_crontask_last_run_days Última execução do cronjob (em dias)\n";
+echo "# TYPE glpi_crontask_last_run_days gauge\n";
+
+echo "# HELP glpi_crontask_run_state Indica se o cronjob rodou no período esperado (1 = sim, 0 = não)\n";
+echo "# TYPE glpi_crontask_run_state gauge\n";
+
 foreach ($data['cron_jobs'] as $cron) {
     $name = $cron['name'];
     $state = $cron['state'];
     $frequency = $cron['frequency'];
     $lastrun = strtotime($cron['lastrun']);
 
-    echo "# HELP glpi_crontask_state Estado do cronjob (ativo = 1, inativo = 0)\n";
-    echo "# TYPE glpi_crontask_state gauge\n";
+
     echo "glpi_crontask_state{name=\"{$name}\"} {$state}\n\n";
 
-    echo "# HELP glpi_crontask_frequency_seconds Frequência do cronjob em segundos\n";
-    echo "# TYPE glpi_crontask_frequency_seconds gauge\n";
     echo "glpi_crontask_frequency_seconds{name=\"{$name}\"} {$frequency}\n\n";
 
-    echo "# HELP glpi_crontask_frequency_minutes Frequência do cronjob em minutos\n";
-    echo "# TYPE glpi_crontask_frequency_minutes gauge\n";
+
     echo "glpi_crontask_frequency_minutes{name=\"{$name}\"} " . ($frequency / 60) . "\n\n";
 
-    echo "# HELP glpi_crontask_frequency_hours Frequência do cronjob em horas\n";
-    echo "# TYPE glpi_crontask_frequency_hours gauge\n";
+
     echo "glpi_crontask_frequency_hours{name=\"{$name}\"} " . ($frequency / 60 / 60) . "\n\n";
 
-    echo "# HELP glpi_crontask_last_run_seconds Última execução do cronjob (timestamp Unix em segundos)\n";
-    echo "# TYPE glpi_crontask_last_run_seconds gauge\n";
+
     echo "glpi_crontask_last_run_seconds{name=\"{$name}\"} {$lastrun}\n\n";
 
-    echo "# HELP glpi_crontask_last_run_minutes Última execução do cronjob (em minutos)\n";
-    echo "# TYPE glpi_crontask_last_run_minutes gauge\n";
     echo "glpi_crontask_last_run_minutes{name=\"{$name}\"} " . ($lastrun / 60) . "\n\n";
 
-    echo "# HELP glpi_crontask_last_run_hours Última execução do cronjob (em horas)\n";
-    echo "# TYPE glpi_crontask_last_run_hours gauge\n";
     echo "glpi_crontask_last_run_hours{name=\"{$name}\"} " . ($lastrun / 60 / 60) . "\n\n";
 
-    echo "# HELP glpi_crontask_last_run_days Última execução do cronjob (em dias)\n";
-    echo "# TYPE glpi_crontask_last_run_days gauge\n";
     echo "glpi_crontask_last_run_days{name=\"{$name}\"} " . ($lastrun / 60 / 60 / 24) . "\n\n";
 
-    echo "# HELP glpi_crontask_run_state Indica se o cronjob rodou no período esperado (1 = sim, 0 = não)\n";
-    echo "# TYPE glpi_crontask_run_state gauge\n";
     $run_state = 1;
     if ($state == 1) {
         $run_state = intval(($lastrun + $frequency) >= time());
