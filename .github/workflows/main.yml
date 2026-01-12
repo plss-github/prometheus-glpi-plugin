@@ -9,6 +9,9 @@ on:
 permissions:
   contents: write
 
+env:
+  PLUGIN_NAME: plssprometheus
+
 jobs:
   build-release:
     runs-on: ubuntu-latest
@@ -23,16 +26,19 @@ jobs:
           VERSION=$(date +"%Y.%m.%d-%H%M")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Criar tar.gz da pasta prometheus
+      - name: Criar tar.gz do repositório
         run: |
-          tar -czvf prometheus-glpi-plugin.tar.gz prometheus
+          tar -czvf ${{ env.PLUGIN_NAME }}.tar.gz \
+            --exclude=.github \
+            --exclude=.git \
+            .
 
       - name: Criar Release no GitHub
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.vars.outputs.version }}
-          name: "GLPI Plugin Prometheus ${{ steps.vars.outputs.version }}"
+          name: "GLPI Plugin ${{ env.PLUGIN_NAME }} ${{ steps.vars.outputs.version }}"
           files: |
-            prometheus-glpi-plugin.tar.gz
+            ${{ env.PLUGIN_NAME }}.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
