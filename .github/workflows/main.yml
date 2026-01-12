@@ -26,13 +26,18 @@ jobs:
           VERSION=$(date +"%Y.%m.%d-%H%M")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Criar tar.gz do repositório
+      - name: Criar tar.gz do repositório (ignorando .github/.git)
         run: |
-          tar -czvf ${{ env.PLUGIN_NAME }}.tar.gz \
+          TAR_PATH="/tmp/${{ env.PLUGIN_NAME }}.tar.gz"
+
+          tar -czf "$TAR_PATH" \
             --exclude=.github \
             --exclude=.git \
+            --exclude="${{ env.PLUGIN_NAME }}.tar.gz" \
             .
 
+          mv "$TAR_PATH" "./${{ env.PLUGIN_NAME }}.tar.gz"
+          
       - name: Criar Release no GitHub
         uses: softprops/action-gh-release@v2
         with:
