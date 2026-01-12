@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 env:
-  PLUGIN_NAME: plssprometheus
+  PLUGIN_NAME: Prometheus
 
 jobs:
   build-release:
