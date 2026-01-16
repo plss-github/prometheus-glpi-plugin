@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 env:
-  PLUGIN_NAME: Prometheus
+  PLUGIN_NAME: prometheus-glpi-plugin
 
 jobs:
   build-release:
