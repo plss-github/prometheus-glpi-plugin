@@ -1,6 +1,10 @@
 <?php
 
-include "../../inc/includes.php";
+if (!defined('GLPI_ROOT')) {
+  define('GLPI_ROOT', dirname(__DIR__, 3));
+}
+
+include GLPI_ROOT . "/inc/includes.php";
 
 $pluginName = "prometheus";
 $pluginHandler = new Plugin();
