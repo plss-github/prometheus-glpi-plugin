@@ -1,58 +1,64 @@
 # Prometheus Plugin GLPI
 
-Plugin para obter métricas do GLPI para utilização em Query's do Prometheus, o plugin como um todo pode ser encontrado na pasta `prometheus`, e ser diretamente importado para dentro de um GLPI, esse projeto também conta com uma instância local do GLPI que pode ser rodada com `Docker Compose`, porém não é necessário para funcionamento do plugin.
+Plugin para obter métricas do GLPI para utilização em Query's do Prometheus, esse plugin conta com métricas para tickets, usuários, notificações, entidades, documentos, categorias, plugins, cron jobs e a versão do GLPI.
 
 ## Métricas Coletadas
 
 O plugin coleta informações de tickets, usuários, notificações, entidades, documentos, categorias, plugins e cron jobs do GLPI.
 
-### Tickets (`glpi_tickets_*`)
+### Tickets (`glpi_total_tickets_*`)
 
-* `glpi_tickets_total` → Número total de chamados
-* `glpi_new_tickets_total` → Chamados com status Novo
-* `glpi_atending_assigned_tickets_total` → Chamados Em atendimento (atribuído)
-* `glpi_atending_planned_tickets_total` → Chamados Em atendimento (planejado)
-* `glpi_pending_tickets_total` → Chamados Pendentes
-* `glpi_resolved_tickets_total` → Chamados Solucionados
-* `glpi_closed_tickets_total` → Chamados Fechados
+* `glpi_total_tickets` → Número total de chamados
+* `glpi_total_tickets_new` → Chamados com status Novo
+* `glpi_total_tickets_atending_assigned` → Chamados Em atendimento (atribuído)
+* `glpi_total_tickets_atending_planned` → Chamados Em atendimento (planejado)
+* `glpi_total_tickets_pending` → Chamados Pendentes
+* `glpi_total_tickets_resolved` → Chamados Solucionados
+* `glpi_total_tickets_closed` → Chamados Fechados
 
-### Usuários (`glpi_users_*`)
+### Usuários (`glpi_total_users_*`)
 
-* `glpi_users_total` → Número total de usuários
-* `glpi_users_active_total` → Usuários ativos
-* `glpi_users_default_count_total` → Usuários com interface central (padrão)
-* `glpi_users_not_central_total` → Usuários com interface simplificada
+* `glpi_total_users` → Número total de usuários
+* `glpi_total_users_active` → Usuários ativos
+* `glpi_total_users_default_count` → Usuários com interface central (padrão)
+* `glpi_total_users_not_central` → Usuários com interface simplificada
 
-### Notificações (glpi_notifications_*)
+### Notificações (`glpi_total_notifications_*`)
 
-* `glpi_notifications_total` → Total de notificações na fila
-* `glpi_notifications_pending` → Notificações pendentes
-* `glpi_notifications_high_age` → Notificações com mais de 20 minutos
-* `glpi_notifications_high_try` → Notificações com mais de 3 tentativas
+* `glpi_total_notifications_total` → Total de notificações na fila
+* `glpi_total_notifications_pending` → Notificações pendentes
+* `glpi_total_notifications_high_age` → Notificações com mais de 20 minutos
+* `glpi_total_notifications_high_try` → Notificações com mais de 3 tentativas
 
-### Recursos gerais
+### Recursos gerais (`glpi_total_*`)
 
 * `glpi_total_entities` → Número total de entidades
 * `glpi_total_documents` → Número total de documentos
 * `glpi_total_categories` → Número total de categorias ITIL
-* `glpi_plugins_total` → Número total de plugins instalados
+* `glpi_total_plugins` → Número total de plugins instalados
 
-### Cron Jobs (`glpi_<cron_name>_*`)
+### Versão do GLPI (`glpi_version_*`)
 
-Para cada cron job configurado no GLPI são exportadas as métricas:
+* `glpi_version_major` → Versão major do GLPI
+* `glpi_version_minor` → Versão minor do GLPI
+* `glpi_version_patch` → Versão patch do GLPI
 
-* `glpi_<cron_name>_state` → Estado do cron (ativo=1, inativo=0)
-* `glpi_<cron_name>_frequency_seconds` → Frequência em segundos
-* `glpi_<cron_name>_frequency_minutes` → Frequência em minutos
-* `glpi_<cron_name>_frequency_hours` → Frequência em horas
-* `glpi_<cron_name>_last_run_seconds` → Última execução (em segundos)
-* `glpi_<cron_name>_last_run_minutes` → Última execução (em minutos)
-* `glpi_<cron_name>_last_run_hours` → Última execução (em horas)
-* `glpi_<cron_name>_last_run_days` → Última execução (em dias)
-* `glpi_<cron_name>_run_state` → Se o cron rodou dentro do período esperado (1 = sim, 0 = não)
+### Cron Jobs (`glpi_cronjobs_*`)
+
+Para cada cron job configurado no GLPI são exportadas as seguintes métricas usando LABELS do prometheus com o nome do cron:
+
+* `glpi_cronjobs_state{name=<cron_name>}` → Estado do cron (ativo=1, inativo=0)
+* `glpi_cronjobs_frequency_seconds{name=<cron_name>}` → Frequência em segundos
+* `glpi_cronjobs_frequency_minutes{name=<cron_name>}` → Frequência em minutos
+* `glpi_cronjobs_frequency_hours{name=<cron_name>}` → Frequência em horas
+* `glpi_cronjobs_last_run_seconds{name=<cron_name>}` → Última execução (em segundos)
+* `glpi_cronjobs_last_run_minutes{name=<cron_name>}` → Última execução (em minutos)
+* `glpi_cronjobs_last_run_hours{name=<cron_name>}` → Última execução (em horas)
+* `glpi_cronjobs_last_run_days{name=<cron_name>}` → Última execução (em dias)
+* `glpi_cronjobs_run_state{name=<cron_name>}` → Se o cron rodou dentro do período esperado (1 = sim, 0 = não)
 
 ## Como usar
-Copie a pasta prometheus para o diretório `plugins/` ou `marketplace/` do GLPI, dependendo da forma de instalação desejada.
+Instale o plugin Prometheus no diretório `plugins/` ou `marketplace/` do GLPI, dependendo da forma de instalação desejada.
 
 Ative o plugin no painel do GLPI.
 

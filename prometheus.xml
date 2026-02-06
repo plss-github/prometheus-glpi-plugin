@@ -1,57 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
-    <name>Prometheus GLPI</name>
-    <key>prometheus</key>
-    <state>stable</state>
-    <logo>https://raw.githubusercontent.com/plss-github/prometheus-glpi-plugin/refs/heads/main/prometheus/misc/logo.png</logo>
-    <description>
-        <short>
-            <en>GLPI plugin to host metrics to Prometheus.</en>
-            <pt>GLPI plugin para fornecer métricas para o Prometheus.</pt>
-        </short>
-        <long>
-            <en>This plugin after beign installed and activated in the plugins tab, will host your GLPI metrics to Prometheus in the `/plugins/prometheus/metrics.php` page.</en>
-            <pt>Este plugin após ser instalado e ativado na página de plugins, irá fornecer as métricas do seu GLPI para o Prometheus na página `/plugins/prometheus/metrics.php`.</pt>
-        </long>
-    </description>
-    <homepage>https://github.com/plss-github/prometheus-glpi-plugin</homepage>
-    <download>https://github.com/plss-github/prometheus-glpi-plugin/releases</download>
-    <issues>https://github.com/plss-github/prometheus-glpi-plugin/issues</issues>
-    <readme>https://raw.githubusercontent.com/plss-github/prometheus-glpi-plugin/master/README.md</readme>
-    <authors>
-        <author>Ampris</author>
-    </authors>
-    <versions>
-        <version>
-            <num>0.0.1</num>
-            <compatibility>~10.0.0</compatibility>
-        </version>
-    </versions>
-    <langs>
-        <lang>en_GB</lang>
-        <lang>pt_BR</lang>
-    </langs>
-    <license>GPL v2+</license>
-    <tags>
-        <en>
-            <tag>prometheus</tag>
-            <tag>metrics</tag>
-            <tag>data</tag>
-            <tag>uptime</tag>
-            <tag>live</tag>
-            <tag>health</tag>
-            <tag>helper</tag>
-            <tag>help</tag>
-        </en>
-        <pt>
-            <tag>prometheus</tag>
-            <tag>métricas</tag>
-            <tag>dados</tag>
-            <tag>tempo vivo</tag>
-            <tag>uptime</tag>
-            <tag>produção</tag>
-            <tag>vivo</tag>
-            <tag>ajuda</tag>
-            <tag>auxílio</tag>
-        </pt>
-    </tags>
+  <name>Prometheus GLPI</name>
+  <key>prometheus</key>
+  <state>stable</state>
+  <logo>https://raw.githubusercontent.com/plss-github/prometheus-glpi-plugin/refs/heads/main/misc/logo.png</logo>
+  <description>
+    <short>
+      <en>GLPI plugin to host metrics to Prometheus.</en>
+      <pt>GLPI plugin para fornecer métricas para o Prometheus.</pt>
+    </short>
+    <long>
+      <en>This plugin after beign installed and activated in the plugins tab, will host your GLPI metrics to Prometheus in the `/plugins/prometheus/metrics.php` page.</en>
+      <pt>Este plugin após ser instalado e ativado na página de plugins, irá fornecer as métricas do seu GLPI para o Prometheus na página `/plugins/prometheus/metrics.php`.</pt>
+    </long>
+  </description>
+  <homepage>https://github.com/plss-github/prometheus-glpi-plugin</homepage>
+  <download>https://github.com/plss-github/prometheus-glpi-plugin/releases</download>
+  <issues>https://github.com/plss-github/prometheus-glpi-plugin/issues</issues>
+  <readme>https://raw.githubusercontent.com/plss-github/prometheus-glpi-plugin/master/README.md</readme>
+  <authors>
+    <author>Ampris</author>
+  </authors>
+  <versions>
+    <version>
+      <num>1.0.1</num>
+      <compatibility>^10.0.0</compatibility>
+    </version>
+  </versions>
+  <langs>
+    <lang>en_GB</lang>
+    <lang>pt_BR</lang>
+  </langs>
+  <license>GPL v2+</license>
+  <tags>
+    <en>
+      <tag>prometheus</tag>
+      <tag>metrics</tag>
+      <tag>data</tag>
+      <tag>uptime</tag>
+      <tag>live</tag>
+      <tag>health</tag>
+      <tag>helper</tag>
+      <tag>help</tag>
+    </en>
+    <pt>
+      <tag>prometheus</tag>
+      <tag>métricas</tag>
+      <tag>dados</tag>
+      <tag>tempo vivo</tag>
+      <tag>uptime</tag>
+      <tag>produção</tag>
+      <tag>vivo</tag>
+      <tag>ajuda</tag>
+      <tag>auxílio</tag>
+    </pt>
+  </tags>
 </root>
