@@ -273,7 +273,7 @@ foreach ($data["cron_jobs"] as $cron) {
   $name = $cron["name"];
   $state = (int) $cron["state"];
   $frequency = (int) $cron["frequency"];
-  $lastRun = strtotime($cron["lastrun"]);
+  $lastRun = (int) $cron["lastrun"];
 
   $values = [
     "glpi_cronjobs_state" => $state,
