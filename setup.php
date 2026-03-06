@@ -1,11 +1,12 @@
 <?php
 
-define('PLUGIN_PROMETHEUS_VERSION', '1.0.1');
+define('PLUGIN_PROMETHEUS_VERSION', '1.0.2');
 
 function plugin_init_prometheus() {
   global $PLUGIN_HOOKS;
 
   $PLUGIN_HOOKS['csrf_compliant']['prometheus'] = true;
+  $PLUGIN_HOOKS['config_page']['prometheus'] = 'metrics.php';
 
   if (version_compare(GLPI_VERSION, '11.0.0', 'ge')) {
     Glpi\Http\SessionManager::registerPluginStatelessPath(
