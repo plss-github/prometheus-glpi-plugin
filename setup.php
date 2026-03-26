@@ -1,6 +1,6 @@
 <?php
 
-define('PLUGIN_PROMETHEUS_VERSION', '1.0.2');
+define('PLUGIN_PROMETHEUS_VERSION', '1.0.3');
 
 function plugin_init_prometheus() {
   global $PLUGIN_HOOKS;

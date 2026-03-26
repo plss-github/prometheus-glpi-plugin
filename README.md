@@ -56,6 +56,7 @@ Para cada cron job configurado no GLPI são exportadas as seguintes métricas us
 * `glpi_cronjobs_last_run_hours{name=<cron_name>}` → Última execução (em horas)
 * `glpi_cronjobs_last_run_days{name=<cron_name>}` → Última execução (em dias)
 * `glpi_cronjobs_run_state{name=<cron_name>}` → Se o cron rodou dentro do período esperado (1 = sim, 0 = não)
+* `glpi_cronjobs_run_mode{name=<cron_name>}` → Se o cron está rodando em modo WEB ou CLI (1 = WEB, 2 = CLI)
 
 ## Como usar
 Instale o plugin Prometheus no diretório `plugins/` ou `marketplace/` do GLPI, dependendo da forma de instalação desejada.

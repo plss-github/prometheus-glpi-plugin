@@ -1,10 +1,8 @@
 <?php
 
 if (!defined('GLPI_ROOT')) {
-  define('GLPI_ROOT', dirname(__DIR__, 3));
+  include __DIR__ . '/../../../inc/includes.php';
 }
-
-include GLPI_ROOT . "/inc/includes.php";
 
 $pluginName = "prometheus";
 $pluginHandler = new Plugin();
@@ -101,7 +99,7 @@ function get_data()
   $users = $result->fetch_all(MYSQLI_ASSOC);
 
   $sql = "
-    SELECT id, name, frequency, lastrun, state FROM glpi_crontasks;
+    SELECT id, name, frequency, lastrun, state, mode FROM glpi_crontasks;
   ";
 
   $result = $DB->doQuery($sql);
@@ -177,6 +175,11 @@ $metrics = [
   "glpi_cronjobs_run_state" => [
     "help" =>
       "Indica se o cronjob rodou no período esperado (1 = sim, 0 = não)",
+    "type" => "gauge",
+  ],
+  "glpi_cronjobs_run_mode" => [
+    "help" =>
+      "Indica o modo de execução do cronjob (1 = WEB, 2 = CLI)",
     "type" => "gauge",
   ],
 ];
@@ -274,6 +277,7 @@ foreach ($data["cron_jobs"] as $cron) {
   $state = (int) $cron["state"];
   $frequency = (int) $cron["frequency"];
   $lastRun = $cron["lastrun"] ? strtotime($cron["lastrun"]) : 0;
+  $mode = (int) $cron["mode"];
 
   $values = [
     "glpi_cronjobs_state" => $state,
@@ -286,6 +290,7 @@ foreach ($data["cron_jobs"] as $cron) {
     "glpi_cronjobs_last_run_days" => $lastRun / 60 / 60 / 24,
     "glpi_cronjobs_run_state" =>
       $state === 1 ? (int) ($lastRun + $frequency >= time()) : 1,
+    "glpi_cronjobs_run_mode" => $mode,
   ];
 
   foreach ($values as $metric => $value) {

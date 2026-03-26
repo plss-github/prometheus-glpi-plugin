@@ -23,7 +23,7 @@ jobs:
       - name: Definir versão da release
         id: vars
         run: |
-          VERSION=$(date +"%Y.%m.%d-%H%M")
+          VERSION=$(grep -oP "\S*'PLUGIN_\w*_VERSION'\,\s*'\K[^']+" setup.php)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Criar tar.gz do repositório (ignorando .github/.git)
@@ -34,15 +34,16 @@ jobs:
             --exclude=.github \
             --exclude=.git \
             --exclude="${{ env.PLUGIN_NAME }}.tar.gz" \
+            --transform "s|^|${{ env.PLUGIN_NAME }}/|" \
             .
 
           mv "$TAR_PATH" "./${{ env.PLUGIN_NAME }}.tar.gz"
-          
+
       - name: Criar Release no GitHub
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.vars.outputs.version }}
-          name: "GLPI Plugin ${{ env.PLUGIN_NAME }} ${{ steps.vars.outputs.version }}"
+          name: "${{ steps.vars.outputs.version }}"
           files: |
             ${{ env.PLUGIN_NAME }}.tar.gz
         env:
