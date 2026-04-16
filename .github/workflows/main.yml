@@ -34,7 +34,6 @@ jobs:
             --exclude=.github \
             --exclude=.git \
             --exclude="${{ env.PLUGIN_NAME }}.tar.gz" \
-            --transform "s|^|${{ env.PLUGIN_NAME }}/|" \
             .
 
           mv "$TAR_PATH" "./${{ env.PLUGIN_NAME }}.tar.gz"
